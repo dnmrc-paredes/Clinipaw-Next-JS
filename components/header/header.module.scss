@@ -1,0 +1,77 @@
+@import '../../styles/variables.scss';
+
+nav.nav {
+    display: flex;
+    position: sticky;
+    top: 0;
+    // background-color: red;
+    height: 80px;
+    justify-content: center;
+    -webkit-box-shadow: 0 4px 6px -6px #777;
+    -moz-box-shadow: 0 4px 6px -6px #777;
+    box-shadow: 0 4px 6px -6px #777;
+    z-index: 3;
+    background-color: white;
+
+    &:out-of-range {
+        background-color: teal;
+    }
+
+    .navlogo {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        h1 {
+            font-family: $main-font;
+            letter-spacing: 3px;
+            color: teal;
+        }
+    }
+
+    .navlinks {
+        flex: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        a {
+            position: relative;
+            margin: 0 1rem;
+            font-family: $main-font;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition-property: all;
+            transition-duration: 0.3s;
+            padding: 0.3rem 0;
+            // border-top: solid transparent 1px;
+            border-bottom: solid transparent 2px;
+        }
+
+        a:hover {
+            color: teal;
+            // border-bottom: solid teal 1px;
+        }
+
+        a::after {
+            content: "";
+            position: absolute;
+            border-bottom: 2px solid teal;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            opacity: 0;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: 0.5s;
+        }
+
+        a:hover::after {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+    }
+}

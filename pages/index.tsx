@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.scss'
 
 export default function Home() {
   return (
@@ -11,59 +11,48 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+      <main>
+        
+        <section id={styles.sect1}>
+          <div className={styles.sect1info}>
+            <h2> Choose the best for you pet </h2>
+            <p> Set up an appointment now. </p>
+            <button> Reserve </button> 
+          </div>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+          <div className={styles.sect1img}>
+            <Image width="500" height="500" src="/isometric-clinic.svg" alt="isometric-clinic" />
+          </div>
+        </section>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+        <section id={styles.sect2}>
+          <div className={styles.sect2info}>
+            <Image src="/vaccine.svg" width="400" height="400" alt="vaccine" />
+            <div className={styles.details}>
+              <h2> Always take care of you pets. </h2>
+            </div>
+          </div>
+        </section>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+        <section id={styles.sect3}>
+          <div className={styles.sect3info1}>
+            <Image src="/diff.svg" width="300" height="300" alt="vaccine" />
+            <h1> We take care all kinds of pets. </h1>
+            {/* <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam harum dignissimos magnam animi voluptate officiis! </p> */}
+            <p> Here at Clinipaw We always take care of our customer&apos;s pets no matter what kind.</p>
+          </div>
 
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+          <div className={styles.sect3info2}>
+            <Image src="/24hours.svg" width="300" height="300" alt="vaccine" />
+            <h1> Always 24 hours of service. </h1>
+            {/* <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus quasi expedita soluta. Hic ut deleniti velit illo fugit? Ut, placeat. </p> */}
+            <p> Our service is open for 24 hours, we are always available in times of need. </p>
+          </div>
+        </section>
+
       </main>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
   )
 }
