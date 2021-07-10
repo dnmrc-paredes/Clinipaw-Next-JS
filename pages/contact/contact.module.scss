@@ -1,0 +1,35 @@
+@import '../../styles/variables.scss';
+
+.container {
+    
+    main {
+        display: flex;
+        justify-content: center;
+        min-height: 90vh;
+
+        .contact {
+            display: flex;
+            justify-content: center;
+            // background-color: red;
+            flex-direction: column;
+
+            .details {
+                margin-bottom: 1rem;
+
+                h1 {
+                    font-family: $main-font;
+                    color: teal;
+                }
+            }
+
+            .icons {
+                display: flex;
+                justify-content: center;
+                
+                .icon {
+                    margin: 0 0.2rem;
+                }
+            }
+        }
+    }
+}

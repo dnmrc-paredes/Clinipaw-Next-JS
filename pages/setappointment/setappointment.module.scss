@@ -1,0 +1,91 @@
+@import '../../styles/variables.scss';
+
+.container {
+    // background-color: red;
+    min-height: 80vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    form {
+        // background-color: yellow;
+        margin: 0 2rem;
+        display: flex;
+        flex-direction: column;
+
+        .form {
+            // background-color: orange;
+            display: flex;
+            position: relative;
+            justify-content: center;
+
+            .persondetails {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                width: 100px;
+                // background-color: rebeccapurple;
+                margin: 0 2rem;
+    
+                label {
+                    font-family: $main-font;
+                    margin: 1rem 0 0.5rem 0;
+                }
+                
+                input {
+                    padding: 0.5rem;
+                    font-family: $main-font;
+                }
+            }
+    
+            .appointmentmsg {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                margin: 0 2rem;
+    
+                label {
+                    font-family: $main-font;
+                    margin: 1rem 0 0.5rem 0;
+                }
+                
+                input {
+                    padding: 0.5rem;
+                    font-family: $main-font;
+                }
+    
+                textarea {
+                    padding: 0.5rem;
+                    height: 120px;
+                    font-family: $main-font;
+                }
+            }
+        }
+
+        button {
+            margin-top: 1rem;
+            width: 100px;
+            padding: 0.5rem;
+            font-family: $main-font;
+            margin: 1rem 2rem;
+            border-radius: 25px;
+            outline: none;
+            border: none;
+            transition-property: all;
+            transition-duration: 0.3s;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            border: solid 1px teal;
+            color: teal;
+            background-color: white;
+        }
+
+        button:hover {
+            background-color: teal;
+            color: white;
+        }
+        
+    }
+}
