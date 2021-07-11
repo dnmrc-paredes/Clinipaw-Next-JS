@@ -1,4 +1,6 @@
-export interface Iappointment {
+import { Document } from "mongoose";
+
+export interface Iappointment extends Document {
     name: string
     email: string
     phone: number

@@ -1,4 +1,5 @@
 import type { NextApiHandler } from 'next'
+import nodemailer from 'nodemailer'
 import { establishConnection } from '../../../db/connection'
 import { Appointment } from '../../../db/models/appointment'
 
@@ -6,9 +7,15 @@ establishConnection()
 
 const setAppointment: NextApiHandler = async (req, res) => {
 
-    const {name, email, phone, date, kind, msg} = req.body as {name: string, email: string, phone: string, date: string, kind: string, msg: string}
+    const {name, email, phone, date, kind, msg} = req.body as {name: string, email: string, phone: string, date: Date, kind: string, msg: string}
 
     try {
+
+        const html = `
+            <p> You appointment is in <strong> ${new Date(date).toDateString()} </strong> </p>
+            <h3> Your Concern: </h3>
+            <p> ${msg} </p>
+        `
 
         const newAppointment = new Appointment({
             name,
@@ -21,12 +28,32 @@ const setAppointment: NextApiHandler = async (req, res) => {
 
         await newAppointment.save()
 
+        const transporter = nodemailer.createTransport({
+            name: 'CliniPaw',
+            service: "gmail",
+            auth: {
+                user: `${process.env.NODEMAILER_EMAIL as string}`,
+                pass: `${process.env.NODEMAILER_PASS as string}`
+            }
+        })
+
+        const mailOptions = {
+            from: ' "CliniPaw" <dummyonly123098@gmail.com> ',
+            to: email,
+            subject: "Appoinment Set",
+            text: 'Hello',
+            html
+        }
+
+        await transporter.sendMail(mailOptions)
+
         return res.status(200).json({
             status: 'ok',
             msg: 'Appointment Created.'
         })
         
     } catch (err) {
+        console.log(err)
         throw Error ('Please try again.')
     }
 

@@ -1,0 +1,73 @@
+@import '../../../styles/variables.scss';
+
+.container {
+    // background-color: red;
+    padding: 1rem;
+    display: flex;
+    min-height: 85vh;
+
+    main {
+        padding: 1rem;
+        // background-color: yellow;
+        display: flex;
+        justify-content: left;
+        flex: 1;
+
+        form {
+            // flex: 1;
+            // background-color: teal;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            width: 350px;
+
+            h1 {
+                font-family: $main-font;
+                // font-weight: 700;
+                color: teal;
+                margin-bottom: 0.5rem;
+            }
+
+            label {
+                font-family: $main-font;
+            }
+
+            input {
+                padding: 0.5rem;
+                margin: 0.5rem 0;
+
+            }
+
+            button {
+                margin-top: 0.5rem;
+                padding: 0.5rem;
+                width: 100px;
+                border-radius: 25px;
+                outline: none;
+                border: solid 1px teal;
+                color: teal;
+                background-color: white;
+                cursor: pointer;
+                transition-property: all;
+                transition-duration: 0.3s;
+                font-family: $main-font;
+                font-weight: 600;
+            }
+
+            button:hover {
+                background-color: teal;
+                color: white;
+            }
+
+            a {
+                margin-top: 1rem;
+                transition-property: all;
+                transition-duration: 0.3s;
+            }
+
+            a:hover {
+                color: teal;
+            }
+        }
+    }
+}

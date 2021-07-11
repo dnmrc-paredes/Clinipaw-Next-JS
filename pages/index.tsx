@@ -1,8 +1,14 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import {useRouter} from 'next/router'
+
+// Styles
 import styles from '../styles/Home.module.scss'
 
 export default function Home() {
+
+  const router = useRouter()
+
   return (
     <div className={styles.container}>
       <Head>
@@ -18,7 +24,7 @@ export default function Home() {
           <div className={styles.sect1info}>
             <h2> Choose the best for your pet </h2>
             <p> Set up an appointment now. </p>
-            <button> Reserve </button> 
+            <button onClick={() => router.push('/setappointment')} > Reserve </button> 
           </div>
 
           <div className={styles.sect1img}>

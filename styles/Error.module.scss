@@ -1,0 +1,24 @@
+@import './variables.scss';
+
+.container {
+    // background-color: red;
+    min-height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    main {
+        display: flex;
+        justify-content: center;
+
+        a {
+            color: teal;
+            transition-property: all;
+            transition-duration: 0.5s;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    }
+}
