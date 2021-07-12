@@ -1,11 +1,12 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import {useRouter} from 'next/router'
+import { NextPage } from 'next'
 
 // Styles
 import styles from '../styles/Home.module.scss'
 
-export default function Home() {
+const Home: NextPage = () =>  {
 
   const router = useRouter()
 
@@ -62,3 +63,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default Home

@@ -2,13 +2,22 @@ import { NextPage } from 'next'
 import { useState, FormEvent, ChangeEvent } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios'
 
 // Styles 
 import styles from './Register.module.scss'
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register: NextPage = () => {
 
+    // Toast
+    const successToast = () => toast('Account created.', { type: 'success' })
+    const errorToast = () => toast('Please fill all inputs.', { type: 'error' })
+    const passwordToast = () => toast('Password must be 5 or 5 characters above.', { type: 'error' })
+
+    const router = useRouter()
     const [register, setRegister] = useState({
         name: "",
         email: "",
@@ -18,8 +27,28 @@ const Register: NextPage = () => {
     const registerSubmit = async (e: FormEvent) => {
         e.preventDefault()
 
+        const {name, email, password} = register
+
+        if (!name || !email || !password) {
+            return errorToast()
+        }
+
+        if (password.length < 5) {
+            return passwordToast()
+        }
+
         const {data} = await axios.post('/api/register', register)
-        console.log(data)
+        
+        if (data.status === 'fail') {
+            return toast('Email already exists.', {type: 'error'})
+        }
+
+        if (data.status === "ok") {
+            successToast()
+            setTimeout(() => {
+                router.push('/admin/login')
+            }, 3000)
+        }
     }
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const {value, name} = e.target
@@ -49,6 +78,18 @@ const Register: NextPage = () => {
                     <Link href="/admin/login" > Have an account? Login here. </Link>
                 </form>
             </main>
+
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
     )
 

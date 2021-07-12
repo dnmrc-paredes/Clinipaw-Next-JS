@@ -1,11 +1,21 @@
-import { NextPage } from "next"
+import { NextPage, GetServerSideProps } from "next"
 import { useState, FormEvent, ChangeEvent } from 'react'
 import Head from 'next/head'
 import axios from 'axios'
 import Link from 'next/link'
+import { toast, ToastContainer } from "react-toastify"
 
 // Styles
 import styles from './Login.module.scss'
+import 'react-toastify/dist/ReactToastify.css';
+
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
+
+    return {
+        props: {}
+    }
+
+}
 
 const Login: NextPage = () => {
 
@@ -18,7 +28,12 @@ const Login: NextPage = () => {
         e.preventDefault()
 
         const {data} = await axios.post('/api/login', login)
-        console.log(data)
+        
+        if (data.status === 'fail') {
+            return toast(data.msg, {type: 'error'})
+        }
+        
+        document.cookie = `auth-token=${data.token}`
 
     }
 
@@ -49,6 +64,18 @@ const Login: NextPage = () => {
                     <Link href="/admin/register" > Register for an account.  </Link>
                 </form>
             </main>
+
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
     )
 }
