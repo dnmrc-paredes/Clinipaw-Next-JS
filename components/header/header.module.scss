@@ -37,7 +37,7 @@ nav.nav {
         align-items: center;
         position: relative;
 
-        a {
+        a, p {
             position: relative;
             margin: 0 1rem;
             font-family: $main-font;
@@ -46,17 +46,18 @@ nav.nav {
             transition-property: all;
             transition-duration: 0.3s;
             padding: 0.3rem 0;
+            cursor: pointer;
             // border-top: solid transparent 1px;
             border-bottom: solid transparent 2px;
         }
 
-        a:hover {
+        a:hover, p:hover {
             color: teal;
             font-weight: 600;
             // border-bottom: solid teal 1px;
         }
 
-        a::after {
+        a::after, p::after {
             content: "";
             position: absolute;
             border-bottom: 2px solid teal;
@@ -70,7 +71,7 @@ nav.nav {
             transition: 0.5s;
         }
 
-        a:hover::after {
+        a:hover::after, p:hover::after {
             opacity: 1;
             transform: scaleX(1);
         }

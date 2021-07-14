@@ -1,4 +1,4 @@
-import { NextPage } from 'next'
+import { NextPage, GetServerSideProps } from 'next'
 import { useState, FormEvent, ChangeEvent } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
@@ -9,6 +9,23 @@ import axios from 'axios'
 // Styles 
 import styles from './Register.module.scss'
 import 'react-toastify/dist/ReactToastify.css';
+
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
+
+    if (req.cookies['auth-token']) {
+        return {
+            redirect: {
+                destination: '/admin/dashboard',
+                permanent: false
+            }
+        }
+    }
+
+    return {
+        props: {}
+    }
+
+}
 
 const Register: NextPage = () => {
 

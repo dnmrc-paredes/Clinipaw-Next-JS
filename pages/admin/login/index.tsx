@@ -3,13 +3,28 @@ import { useState, FormEvent, ChangeEvent } from 'react'
 import Head from 'next/head'
 import axios from 'axios'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { toast, ToastContainer } from "react-toastify"
+import { useDispatch } from 'react-redux'
 
 // Styles
 import styles from './Login.module.scss'
 import 'react-toastify/dist/ReactToastify.css';
+import { LOGGED_IN } from "../../../redux/actions/actions"
 
 export const getServerSideProps: GetServerSideProps = async ({req}) => {
+
+    const token = req.cookies.authToken
+    // console.log(token)
+
+    if (req.cookies['auth-token']) {
+        return {
+            redirect: {
+                destination: '/admin/dashboard',
+                permanent: false
+            }
+        }
+    }
 
     return {
         props: {}
@@ -18,6 +33,9 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
 }
 
 const Login: NextPage = () => {
+
+    const router = useRouter()
+    const dispatch = useDispatch()
 
     const [login, setLogin] = useState({
         email: "",
@@ -33,7 +51,11 @@ const Login: NextPage = () => {
             return toast(data.msg, {type: 'error'})
         }
         
-        document.cookie = `auth-token=${data.token}`
+        if (data.status === 'ok') {
+            document.cookie = `authToken=${data.token}`
+            dispatch(LOGGED_IN())
+            await router.push('/admin/dashboard')
+        }
 
     }
 
