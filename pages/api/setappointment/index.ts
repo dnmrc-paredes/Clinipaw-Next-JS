@@ -34,8 +34,8 @@ const setAppointment: NextApiHandler = async (req, res) => {
             name: 'CliniPaw',
             service: "gmail",
             auth: {
-                user: `${process.env.NODEMAILER_EMAIL as string}`,
-                pass: `${process.env.NODEMAILER_PASS as string}`
+                user: `${process.env.NODEMAILER_EMAIL}`,
+                pass: `${process.env.NODEMAILER_PASS}`
             }
         })
 
@@ -47,12 +47,14 @@ const setAppointment: NextApiHandler = async (req, res) => {
             html
         }
 
-        await transporter.sendMail(mailOptions)
-
-        return res.status(200).json({
-            status: 'ok',
-            msg: 'Appointment Created.'
-        })
+        const mailResult = await transporter.sendMail(mailOptions)
+        
+        if (mailResult.messageId) {
+            return res.status(200).json({
+                status: 'ok',
+                msg: 'Appointment Created.'
+            })
+        }
         
     } catch (err) {
         throw Error ('Please try again.')
