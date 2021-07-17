@@ -5,6 +5,8 @@ export interface Iappointment extends Document {
     email: string
     phone: number
     date: Date
-    kind: string,
+    kind: string
     msg: string
+    status: boolean
+    isCancelled: boolean
 }

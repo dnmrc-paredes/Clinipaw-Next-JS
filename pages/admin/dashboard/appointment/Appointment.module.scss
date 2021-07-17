@@ -9,23 +9,63 @@
     main {
         padding: 3rem;
         // display: flex;
+        width: 100%;
         // justify-content: center;
         
         .appointment {
+            flex: 1;
             display: flex;
             // justify-content: center;
+            // background-color: teal;
             flex-direction: column;
+            position: relative;
             // background-color: red;
-            h3 {
-                font-family: $main-font;
-                font-weight: 500;
-                font-size: 2rem;
+            width: 100%;
+
+            .togglestatus {
+                // flex: 1;
+                display: flex;
+                // flex-direction: column;
+                justify-content: flex-end;
+                padding: 1rem;
+                // background-color: red;
+                cursor: pointer;
+                position: relative;
+
+                .options {
+                    position: absolute;
+                    top: 40px;
+                    right: 20px;
+                    background-color: whitesmoke;
+                    border-radius: 5px;
+                    padding: 1rem;
+                    text-align: center;
+                    font-family: $main-font;
+
+                    p {
+                        margin-top: 0.5rem;
+                        font-size: 0.9rem;
+                    }
+                }
             }
 
-            p {
-                margin-top: 1rem;
-                font-family: $main-font;
-                font-size: 1.3rem;
+            .details {
+                // background-color: yellow;
+                // flex: 2;
+
+                h3 {
+                    font-family: $main-font;
+                    font-weight: 500;
+                    font-size: 1.5rem;
+                }
+    
+                p {
+                    margin-top: 1rem;
+                    font-family: $main-font;
+                    font-size: 1rem;
+                    font-weight: 400;
+                    white-space: pre-line;
+                }
             }
         }
     }
@@ -38,4 +78,18 @@
     min-height: 85vh;
     justify-content: center;
     align-items: center;
+}
+
+// Media Q's
+
+@media screen and (max-width: 700px) {
+
+    .container {
+
+        main {
+            padding: 1rem;
+
+        }
+    }
+
 }

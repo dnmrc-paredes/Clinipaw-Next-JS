@@ -20,6 +20,7 @@ nav.nav {
     .navlogo {
         flex: 1;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
 
@@ -76,4 +77,97 @@ nav.nav {
             transform: scaleX(1);
         }
     }
+
+    .hamburger {
+        display: none;
+        position: relative;
+        
+        .hamlinks {
+            background-color: whitesmoke;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            width: 250px;
+            height: 300px;
+            top: 60px;
+            right: 10px;
+            color: black;
+            border-radius: 5px;
+
+            a, p {
+                position: relative;
+                margin: 0.5rem 1rem;
+                font-family: $main-font;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                transition-property: all;
+                transition-duration: 0.3s;
+                padding: 0.3rem 0;
+                cursor: pointer;
+                // border-top: solid transparent 1px;
+                border-bottom: solid transparent 2px;
+            }
+    
+            a:hover, p:hover {
+                color: black;
+                font-weight: 600;
+                // border-bottom: solid teal 1px;
+            }
+    
+            a::after, p::after {
+                content: "";
+                position: absolute;
+                border-bottom: 2px solid black;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                opacity: 0;
+                transform: scaleX(0);
+                transform-origin: center;
+                transition: 0.5s;
+            }
+    
+            a:hover::after, p:hover::after {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+        }
+
+        .iconcontainer {
+            margin: auto;
+
+            .icon {
+                // background-color: yellow;
+                margin: auto;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+// Media Q's
+
+@media screen and (max-width: 750px) {
+
+    nav.nav {
+
+        .navlogo {
+            align-items: flex-start;
+            margin-left: 2rem;
+        }
+
+        .navlinks {
+            display: none;
+        }
+
+        .hamburger {
+            display: flex;
+            margin-right: 1rem;
+        }
+
+    }
+
 }

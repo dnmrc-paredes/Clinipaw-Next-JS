@@ -16,8 +16,10 @@ const dashboard: NextApiHandler = async (req, res) => {
 
         if (req.method === "GET") {
 
-            const appointment = await Appointment.findOne({_id: id}) as Iappointment
-            
+            const appointment = await Appointment.findOne({_id: id}) as Iappointment | null | undefined
+
+            console.log(!appointment)
+
             return res.status(200).json({
                 status: 'ok',
                 data: appointment,
@@ -25,6 +27,14 @@ const dashboard: NextApiHandler = async (req, res) => {
         }
         
     } catch (err) {
+        if (err.reason) {
+            // console.log('yawa')
+            return res.status(400).json({
+                status: 'fail',
+                msg: 'Something went wrong.'
+            })
+        }
+
         throw Error ('Please try again.')
     }
 

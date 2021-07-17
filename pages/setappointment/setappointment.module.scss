@@ -24,7 +24,7 @@
                 flex: 1;
                 display: flex;
                 flex-direction: column;
-                width: 100px;
+                // width: 100px;
                 // background-color: rebeccapurple;
                 margin: 0 2rem;
     
@@ -88,4 +88,39 @@
         }
         
     }
+}
+
+// Media Q's
+
+@media screen and (max-width: 650px) {
+
+    .container {
+
+        form {
+            margin: 0 1rem;
+
+            .form {
+                flex-direction: column;
+
+            }
+        }
+    }
+
+}
+
+@media screen and (max-width: 450px) {
+
+    .container {
+
+        form {
+
+            .form {
+                
+                .persondetails, .appointmentmsg {
+                    margin: 0 1rem;
+                }
+            }
+        }
+    }
+
 }

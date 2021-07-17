@@ -1,5 +1,5 @@
 import {NextPage, GetServerSideProps} from 'next'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { useQuery } from 'react-query'
 // import cookies from 'next-cookies'
@@ -20,6 +20,7 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
     // const token = cookies({req}).authToken
     const token = req.cookies.authToken
     // console.log(req.cookies)
+    // console.log(req.cookies)
     // console.log(token)
 
     if (!token) {
@@ -31,7 +32,16 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
         }
     }
 
-    const {data} = await axios.get(`http://localhost:3000/api/dashboard/${token}`)
+    const {data, status} = await axios.get(`http://localhost:3000/api/dashboard/${token}`)
+
+    if (status >= 400) {
+        return {
+            redirect: {
+                destination: '/admin/login',
+                permanent: false
+            }
+        }
+    }
 
     return {
         props: {
@@ -53,12 +63,26 @@ const Dashboard: NextPage<{allAppointments: Iappointment[], token: string}> = ({
     // console.log(taetae())
 
     const [limit, setLimit] = useState(0)
+    const [appointments, setAppointments] = useState<Iappointment[]>([])
+    const [isLoading, setIsLoading] = useState(false)
+    const [isMax, setIsMax] = useState<boolean>(false)
 
-    const fetchData = async () => {
-        return (await axios.get(`/api/dashboard/allappointments/${token}/${limit}`)).data
-    }
+    // const fetchData = async () => {
+    //     return (await axios.get(`/api/dashboard/allappointments/${token}/${limit}`)).data
+    // }
+    useEffect(() => {
+        const getData = async () => {
+            setIsLoading(true)
+            const {data} = await axios.get<{status: string, data: Iappointment[], max: boolean, total: number}>(`/api/dashboard/allappointments/${token}/${limit}`)
+            setIsMax(data.max)
+            setAppointments(data.data)
+            setIsLoading(false)
+        }
 
-    const { data, isLoading, refetch } = useQuery('getData', fetchData)
+        getData()
+    }, [token, limit])
+
+    // const { data, isLoading, refetch } = useQuery('getData', fetchData)
     // console.log(data.data)
     // const nest = data.data as Iappointment[]
     // console.log(error)
@@ -85,6 +109,9 @@ const Dashboard: NextPage<{allAppointments: Iappointment[], token: string}> = ({
                     
                     <div className={styles.recentappointments}>
                         <h2> Recent Appointments </h2>
+
+                        {/* { !isLoading && (data.data.length <= 0) && <p> No Appointments </p> } */}
+                        
                         { allAppointments.map(item => {
                             return <div onClick={() => router.push(`/admin/dashboard/appointment/${item._id}`)} className={styles.appointment} key={item._id}>
                                 <p> {item.name} </p>
@@ -102,7 +129,10 @@ const Dashboard: NextPage<{allAppointments: Iappointment[], token: string}> = ({
                     { !isLoading && <h1> All Appointments </h1>  }
 
                     <div className={styles.items}>
-                        { !isLoading && data.data.map((item: Iappointment) => {
+
+                        { !isLoading && (appointments.length <= 0) && <p> No Appointments </p> }
+
+                        { !isLoading && appointments.map((item: Iappointment) => {
                             return <div onClick={() => router.push(`/admin/dashboard/appointment/${item._id}`)} className={styles.appointment} key={item._id}>
                                 <p> {item.name} </p>
                                 <p> {item.kind} </p>
@@ -110,20 +140,14 @@ const Dashboard: NextPage<{allAppointments: Iappointment[], token: string}> = ({
                         }) }
                     </div>
 
-                    <div className={styles.paginate}>
-                        <button onClick={() => {
-                            setLimit(prev => prev-=5)
-                            refetch({
-                                throwOnError: true
-                            })
+                    { !isLoading && (appointments.length > 0) && <div className={styles.paginate}>
+                        <button onClick={ async () => {
+                            setLimit(prev => prev <= 0 ? prev+=0 : prev-=5 )
                         }} > &lt; </button>
-                        <button onClick={() => {
+                        { !isMax && <button onClick={ async () => {
                             setLimit(prev => prev+=5)
-                            refetch({
-                                throwOnError: true
-                            })
-                        }} > &gt; </button>
-                    </div>
+                        }} > &gt; </button> }
+                    </div> }
 
                 </div>
             </main>

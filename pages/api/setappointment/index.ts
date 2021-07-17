@@ -23,7 +23,9 @@ const setAppointment: NextApiHandler = async (req, res) => {
             phone,
             date,
             kind,
-            msg
+            msg,
+            status: false,
+            isCancelled: false
         })
 
         await newAppointment.save()

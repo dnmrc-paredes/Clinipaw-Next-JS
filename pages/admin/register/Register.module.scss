@@ -69,3 +69,34 @@
         }
     }
 }
+
+// Media Q's
+
+@media screen and (max-width: 750px) {
+
+    .container {
+
+        main {
+
+            form {
+                width: 70%;
+            }
+        }
+    }
+
+}
+
+@media screen and (max-width: 450px) {
+
+    .container {
+
+        main {
+
+            form {
+                width: 100%;
+                margin: 0 1rem;
+            }
+        }
+    }
+
+}

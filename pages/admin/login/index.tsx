@@ -17,7 +17,7 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
     const token = req.cookies.authToken
     // console.log(token)
 
-    if (req.cookies['auth-token']) {
+    if (token) {
         return {
             redirect: {
                 destination: '/admin/dashboard',
@@ -46,15 +46,15 @@ const Login: NextPage = () => {
         e.preventDefault()
 
         const {data} = await axios.post('/api/login', login)
+
+        if (data.status === 'ok') {
+            document.cookie = `authToken=${data.token}; path=/`
+            dispatch(LOGGED_IN())
+            await router.push('/admin/dashboard')
+        }
         
         if (data.status === 'fail') {
             return toast(data.msg, {type: 'error'})
-        }
-        
-        if (data.status === 'ok') {
-            document.cookie = `authToken=${data.token}`
-            dispatch(LOGGED_IN())
-            await router.push('/admin/dashboard')
         }
 
     }
