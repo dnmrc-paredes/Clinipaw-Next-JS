@@ -11,49 +11,53 @@ const setAppointment: NextApiHandler = async (req, res) => {
 
     try {
 
-        const html = `
-            <p> You appointment is in <strong> ${new Date(date).toDateString()} </strong> </p>
-            <h3> Your Concern: </h3>
-            <p> ${msg} </p>
-        `
+        if (req.method === "POST") {
 
-        const newAppointment = new Appointment({
-            name,
-            email,
-            phone,
-            date,
-            kind,
-            msg,
-            status: false,
-            isCancelled: false
-        })
+            const html = `
+                <p> You appointment is in <strong> ${new Date(date).toDateString()} </strong> </p>
+                <h3> Your Concern: </h3>
+                <p> ${msg} </p>
+            `
 
-        await newAppointment.save()
-
-        const transporter = nodemailer.createTransport({
-            name: 'CliniPaw',
-            service: "gmail",
-            auth: {
-                user: `${process.env.NODEMAILER_EMAIL}`,
-                pass: `${process.env.NODEMAILER_PASS}`
-            }
-        })
-
-        const mailOptions = {
-            from: ' "CliniPaw" <dummyonly123098@gmail.com> ',
-            to: email,
-            subject: "Appoinment Set",
-            text: 'Hello',
-            html
-        }
-
-        const mailResult = await transporter.sendMail(mailOptions)
-        
-        if (mailResult.messageId) {
-            return res.status(200).json({
-                status: 'ok',
-                msg: 'Appointment Created.'
+            const newAppointment = new Appointment({
+                name,
+                email,
+                phone,
+                date,
+                kind,
+                msg,
+                status: false,
+                isCancelled: false
             })
+
+            await newAppointment.save()
+
+            const transporter = nodemailer.createTransport({
+                name: 'CliniPaw',
+                service: "gmail",
+                auth: {
+                    user: `${process.env.NODEMAILER_EMAIL}`,
+                    pass: `${process.env.NODEMAILER_PASS}`
+                }
+            })
+
+            const mailOptions = {
+                from: ' "CliniPaw" <dummyonly123098@gmail.com> ',
+                to: email,
+                subject: "Appoinment Set",
+                text: 'Hello',
+                html
+            }
+
+            const mailResult = await transporter.sendMail(mailOptions)
+        
+            if (mailResult.messageId) {
+                return res.status(200).json({
+                    status: 'ok',
+                    msg: 'Appointment Created.'
+                })
+            }
+
         }
         
     } catch (err) {
