@@ -14,28 +14,12 @@ import { ScaleLoader } from 'react-spinners'
 import styles from './Appointment.module.scss'
 import { MdMoreHoriz } from 'react-icons/md'
 
-// export const getStaticPaths: GetStaticPaths = () => {
-
-//     return {
-//         paths: [
-//             { params: { appointmentid: '1' } }
-//         ],
-//         fallback: true,
-//     }
-
-// }
-
 export const getServerSideProps: GetServerSideProps = async ({query}) => {
 
     const id = query?.appointmentid
-    const { data, status } = await axios.get(`http://localhost:3000/api/dashboard/oneappointment/${id}`)
-    // console.log(query)
-
-    // console.log(data)
-    console.log(status)
+    const { data, status } = await axios.get(`https://clinipaw.vercel.app/api/dashboard/oneappointment/${id}`)
     
     if (status === 400) {
-        console.log('sdfsafasdf')
         return {
             redirect: '404',
             props: {}
@@ -48,38 +32,12 @@ export const getServerSideProps: GetServerSideProps = async ({query}) => {
 
 }
 
-// export const getStaticProps: GetStaticProps = async ({params}) => {
-
-//     const id = params?.appointmentid
-//     const {data} = await axios.get(`http://localhost:3000/api/dashboard/oneappointment/${id}`)
-
-//     console.log(data)
-    
-//     if (!data.data) {
-//         console.log('sdfsafasdf')
-//         return {
-//             redirect: '/404',
-//             props: {}
-//         }
-//     }
-
-//     return {
-//         props: { appointment: data.data },
-//         revalidate: 1
-//     }
-
-// }
-
 const OneAppointment: NextPage<{appointment: Iappointment}> = ({appointment}) => {
 
     const router = useRouter()
     const [toggle, setToggle] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     
-    // if (!appointment) {
-    //     router.push('/404')
-    // }
-
     if (isLoading) {
         return (
             <div className={styles.loading}>

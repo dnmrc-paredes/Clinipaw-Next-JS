@@ -17,11 +17,7 @@ import styles from './Dashboard.module.scss'
 
 export const getServerSideProps: GetServerSideProps = async ({req}) => {
 
-    // const token = cookies({req}).authToken
     const token = req.cookies.authToken
-    // console.log(req.cookies)
-    // console.log(req.cookies)
-    // console.log(token)
 
     if (!token) {
         return {
@@ -32,7 +28,7 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
         }
     }
 
-    const {data, status} = await axios.get(`http://localhost:3000/api/dashboard/${token}`)
+    const {data, status} = await axios.get(`https://clinipaw.vercel.app/api/dashboard/${token}`)
 
     if (status >= 400) {
         return {
@@ -54,22 +50,12 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
 
 const Dashboard: NextPage<{allAppointments: Iappointment[], token: string}> = ({allAppointments, token}) => {
 
-    // console.log(allAppointments)
-
-    // const taetae = async () => {
-    //     return await axios.get(`/api/try/dinmarc/kubore`)
-    // }
-
-    // console.log(taetae())
-
     const [limit, setLimit] = useState(0)
     const [appointments, setAppointments] = useState<Iappointment[]>([])
     const [isLoading, setIsLoading] = useState(false)
     const [isMax, setIsMax] = useState<boolean>(false)
+    const router = useRouter()
 
-    // const fetchData = async () => {
-    //     return (await axios.get(`/api/dashboard/allappointments/${token}/${limit}`)).data
-    // }
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true)
@@ -81,14 +67,6 @@ const Dashboard: NextPage<{allAppointments: Iappointment[], token: string}> = ({
 
         getData()
     }, [token, limit])
-
-    // const { data, isLoading, refetch } = useQuery('getData', fetchData)
-    // console.log(data.data)
-    // const nest = data.data as Iappointment[]
-    // console.log(error)
-    // console.log(status)
-    const router = useRouter()
-    // const [all, setAll] = useState(nest) as Iappointment[]
 
     return (
         <div className={styles.container}>

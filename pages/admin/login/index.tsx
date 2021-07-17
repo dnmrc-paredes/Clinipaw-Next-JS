@@ -15,7 +15,6 @@ import { LOGGED_IN } from "../../../redux/actions/actions"
 export const getServerSideProps: GetServerSideProps = async ({req}) => {
 
     const token = req.cookies.authToken
-    // console.log(token)
 
     if (token) {
         return {

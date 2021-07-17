@@ -46,14 +46,12 @@ const Home: NextPage = () =>  {
           <div className={styles.sect3info1}>
             <Image src="/diff.svg" width="300" height="300" alt="vaccine" />
             <h1> We take care all kinds of pets. </h1>
-            {/* <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam harum dignissimos magnam animi voluptate officiis! </p> */}
             <p> Here at CliniPaw, We always take care of our customer&apos;s pets no matter what kind.</p>
           </div>
 
           <div className={styles.sect3info2}>
             <Image src="/24hours.svg" width="300" height="300" alt="vaccine" />
             <h1> Always 24 hours of service. </h1>
-            {/* <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus quasi expedita soluta. Hic ut deleniti velit illo fugit? Ut, placeat. </p> */}
             <p> Our service is open for 24 hours, we are always available in times of need. </p>
           </div>
         </section>

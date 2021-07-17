@@ -9,7 +9,6 @@ import { Iappointment } from '../../../../ts/appointment'
 const toggleStatus: NextApiHandler = async (req, res) => {
 
     const appointmentId = req.query.appointmentid
-    // console.log(req.query)
 
     try {
 
